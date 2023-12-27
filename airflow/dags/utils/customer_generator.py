@@ -32,7 +32,7 @@ def generate_fake_customers(number_of_customer):
             "Toast": fake_paragraph,
             "Job": fake_job
         }
-        json_file_name = "customer_"+str(i+1)+".json"
+        json_file_name = "data_customer/customer_"+str(i+1)+".json"
 
         with open(json_file_name, 'w') as json_file:
             json.dump(customer_object, json_file, default=convert_to_serializable, indent=4)
