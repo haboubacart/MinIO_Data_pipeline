@@ -1,2 +1,5 @@
 pandas 
 faker
+apache-airflow-providers-apache-kafka
+confluent-kafka
+kafka-python
