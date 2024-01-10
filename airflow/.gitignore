@@ -1,5 +1,6 @@
 .env
-.cfg
-.pid
+airflow.cfg
+airflow-webserver.pid
+webserver-config.py
 logs/
 dags/__pycache__/
