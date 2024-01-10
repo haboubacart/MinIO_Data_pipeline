@@ -1,6 +1,6 @@
 .env
 airflow.cfg
-airflow-webserver.pid
-webserver_config.py
-logs/
-dags/__pycache__/
+airflow/airflow-webserver.pid
+airflow/webserver_config.py
+airflow/logs/
+airflow/dags/__pycache__/
