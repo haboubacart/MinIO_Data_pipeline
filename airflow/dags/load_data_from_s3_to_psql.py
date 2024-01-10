@@ -111,7 +111,7 @@ dag = DAG(
     'load_data_from_s3_to_psql',
     default_args=default_args,
     description='A simple DAG with a Python task',
-    schedule_interval='*/2 * * * *',
+    schedule_interval=None,
 )
 
 load_data_from_s3_to_psql = PythonOperator(

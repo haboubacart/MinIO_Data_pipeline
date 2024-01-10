@@ -73,10 +73,10 @@ def produce_data():
         value_serializer=lambda v: json.dumps(v, cls=DateEncoder).encode('utf-8')
     )
     topic_name = 'test'
-    start_time = time.time()
-    while time.time() - start_time < 2:  # run for 2 seconds
+    for _ in range (50):
         message = generate_fake_customers()
         producer.send(topic_name, value=message)
+        time.sleep(1)
     producer.close()
 
 default_args = {
@@ -90,10 +90,10 @@ default_args = {
 }
 
 dag = DAG(
-    'customers_producer_&_consumer',
+    'customers_producer__consumer',
     default_args=default_args,
     description='A simple DAG with a Python task',
-    schedule_interval='*/5 * * * *'
+    schedule_interval=None
 )
 
 producer_task = PythonOperator(
@@ -116,18 +116,17 @@ def consume_from_kafka(**kwargs):
     # Create Kafka Consumer instance
     consumer = KafkaConsumer(kafka_topic, **kafka_config)
     try:
-        offset_file_path = '../offset_file.txt'  # Set the desired file path
-        with open(offset_file_path, 'a') as offset_file:
-            for message in consumer:
-                offset_info = {
-                    'partition': message.partition,
-                    'offset': message.offset,
-                    'timestamp': message.timestamp,
-                }
-                dict_msg = json.loads(message.value.decode('utf-8'))
-                dict_msg["msg_info"] = offset_info
-                print(dict_msg)
-                upload_dict_as_json_to_minio(os.getenv("MINIO_ENDPOINT"),os.getenv("MINIO_ACCESS_KEY"), os.getenv("MINIO_SECRET_KEY"),os.getenv("MINIO_BUCKET_NAME"),"/customers_profiles/customer_"+str(message.offset)+".json", dict_msg)
+        for message in consumer:
+            offset_info = {
+                'partition': message.partition,
+                'offset': message.offset,
+                'timestamp': message.timestamp,
+            }
+            dict_msg = json.loads(message.value.decode('utf-8'))
+            dict_msg["msg_info"] = offset_info
+            print(dict_msg)
+            print(message.offset)
+            upload_dict_as_json_to_minio(os.getenv("MINIO_ENDPOINT"),os.getenv("MINIO_ACCESS_KEY"), os.getenv("MINIO_SECRET_KEY"),os.getenv("MINIO_BUCKET_NAME"),"/customers_profiles/customer_"+str(message.offset)+".json", dict_msg)
     except :
         print("error from consumer")      
     consumer.close()
