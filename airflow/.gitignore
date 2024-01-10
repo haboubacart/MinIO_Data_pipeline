@@ -1,0 +1,5 @@
+.env
+.cfg
+.pid
+logs/
+dags/__pycache__/
