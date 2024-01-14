@@ -3,13 +3,21 @@ Ce projet constitue une pipeline de données produites avec un générateur bas�
 Tout le fonctionnement étant orchestré avec Airflow.
 
 # Les éléments du projet : 
-les 3 services lancés via le docker-compose sont
- - Kafka : servic de queue messaging permettant le streaming de la données
- - Zookeeper : utilisé pour gèrer la distribution des du système kafka
+## les 3 services lancés via le docker-compose sont
+ - Kafka : service de queue messaging permettant le streaming de la donnée
+ - Zookeeper : utilisé pour gèrer la distribution du système kafka
  - MinIO : est un sytème de fichiers distribué, open source, compatible avec AWS S3
-Airflow a été installé en standalone (voir airflow.sh)
 
-# Détails de jobs airflow : 
+## Airflow a été installé en standalone 
+Pour lancer le service airflow, il faut executer successivement les scripts bash suivants : 
+ - airflow_install.sh
+ - airflow_run.sh
+Il faudra bien s'assurer avant de lancer airflow d'avoir bien lancé les 3 services (conteneurs docker) précédants : 
+ - docker-compose up -d
+
+## Détails de jobs airflow : 
+ - customers_producer_&_consumer : dag de génération du flux de données et chargement dans MinIO
+ - load_data_from_s3_to_psql : dag de chargement des données à partir du datalake dans MinIO pour alimenter une base de données psql
 
 # Architecture de la pipeline : 
 
