@@ -1,5 +1,6 @@
 ## Contexte :
 Ce projet constitue une pipeline de données produites avec un générateur basé sur un script python, transitant via une queue kafka (Producuer + Consumer) et qui se déversent dans un datalake MinIO (hdfs compatible avec AWS S3). Ensuite les données sont récupérées à des fréquences régulières et inscrites dans un data warehouse (base de données postgres).
+
 Tout le fonctionnement étant orchestré avec Airflow.
 
 ## les 3 services lancés via le docker-compose sont :
@@ -11,6 +12,7 @@ Tout le fonctionnement étant orchestré avec Airflow.
 Pour lancer le service airflow (installé en standalone), il faut executer successivement les scripts bash suivants : 
  - airflow_install.sh
  - airflow_run.sh
+
 Il faudra bien s'assurer avant de lancer airflow d'avoir bien lancé les 3 services (conteneurs docker) précédants : 
  - docker-compose up -d
 
