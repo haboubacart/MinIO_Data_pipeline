@@ -7,8 +7,8 @@ Tout le fonctionnement étant orchestré avec Airflow.
  - Zookeeper : utilisé pour gèrer la distribution du système kafka
  - MinIO : est un sytème de fichiers distribué, open source, compatible avec AWS S3
 
-## Airflow a été installé en standalone 
-Pour lancer le service airflow, il faut executer successivement les scripts bash suivants : 
+## Comment exécuter le projet
+Pour lancer le service airflow (installé en standalone), il faut executer successivement les scripts bash suivants : 
  - airflow_install.sh
  - airflow_run.sh
 Il faudra bien s'assurer avant de lancer airflow d'avoir bien lancé les 3 services (conteneurs docker) précédants : 
