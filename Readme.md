@@ -1,8 +1,7 @@
-# Contexte :
-Ce projet constitue une pipeline de données produites avec un générateur basé sur un script python, transitant via une queue kafka (Producuer + Consumer) et qui se déversent dans un datalake MinIO (hdfs compatible avec AWS S3). Ensuite les données sont récupérées à des fréquences régulière et inscrites dans un data warehouse (base de données postgres)
+## Contexte :
+Ce projet constitue une pipeline de données produites avec un générateur basé sur un script python, transitant via une queue kafka (Producuer + Consumer) et qui se déversent dans un datalake MinIO (hdfs compatible avec AWS S3). Ensuite les données sont récupérées à des fréquences régulières et inscrites dans un data warehouse (base de données postgres).
 Tout le fonctionnement étant orchestré avec Airflow.
 
-# Les éléments du projet : 
 ## les 3 services lancés via le docker-compose sont
  - Kafka : service de queue messaging permettant le streaming de la donnée
  - Zookeeper : utilisé pour gèrer la distribution du système kafka
@@ -19,6 +18,6 @@ Il faudra bien s'assurer avant de lancer airflow d'avoir bien lancé les 3 servi
  - customers_producer_&_consumer : dag de génération du flux de données et chargement dans MinIO
  - load_data_from_s3_to_psql : dag de chargement des données à partir du datalake dans MinIO pour alimenter une base de données psql
 
-# Architecture de la pipeline : 
+## Architecture de la pipeline : 
 
 ![Data pipeline](images/schema.png)
